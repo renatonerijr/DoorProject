@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/ffmpeg.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/javacpp.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/javacv-platform.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/javacv.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/opencv.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/videoinput-platform.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/videoinput.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/opencv-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/opencv-linux-x86.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/opencv-platform.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/opencv-windows-x86_64.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/opencv-windows-x86.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/videoinput-windows-x86_64.jar"/>
+	<classpathentry kind="lib" path="libs/javacv-bin/videoinput-windows-x86.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
