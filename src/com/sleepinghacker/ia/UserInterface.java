@@ -34,7 +34,7 @@ public class UserInterface {
 	*
 	***************************************************************************************/
 
-	public static OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0); // Captures webcam
+	public static OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0); // Captures webcam!" 
 	public static Frame capturedFrame = null;
 	public static DataProcess data = new DataProcess();
 
