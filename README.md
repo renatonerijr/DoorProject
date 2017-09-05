@@ -6,3 +6,8 @@ OpenCv Libs are in:
 
 The code is on:
 /src/com/sleepinghacker/ia/
+
+There is a executable jar file to test
+![Download here](https://github.com/SleepingCoder/DoorProject/raw/master/DoorProjeto.jar)
+
+![img](https://raw.githubusercontent.com/SleepingCoder/DoorProject/master/Screenshot.jpg)
