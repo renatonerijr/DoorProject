@@ -34,7 +34,7 @@ public class UserInterface {
 	*
 	***************************************************************************************/
 
-	public static OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(1); // Captures webcam
+	public static OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0); // Captures webcam
 	public static Frame capturedFrame = null;
 	public static DataProcess data = new DataProcess();
 
@@ -80,9 +80,6 @@ public class UserInterface {
 			public void actionPerformed(ActionEvent e) {
 				if (newEye != null) {
 					eyeList.add(data.newIrisArray(null, newEye));
-					cvShowImage("Blacked Pupil Iris", data.irisBlackedPupil);
-					cvShowImage("Polar to Cart", data.polar2cart);
-					cvWaitKey(0);
 				}
 			}
 		});
