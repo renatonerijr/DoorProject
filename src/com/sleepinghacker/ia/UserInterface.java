@@ -3,7 +3,6 @@ package com.sleepinghacker.ia;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static org.bytedeco.javacpp.opencv_highgui.*;
-
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
@@ -47,8 +46,8 @@ public class UserInterface {
 	public static IplImage newEye;
 
 	public static ArrayList<int[]> eyeList = new ArrayList<>();
+	
 	public static int[] compare;
-
 	public static double hd = 0.19;
 
 	public static void main(String[] Args) {
@@ -80,7 +79,10 @@ public class UserInterface {
 			public void actionPerformed(ActionEvent e) {
 				if (newEye != null) {
 					eyeList.add(data.newIrisArray(null, newEye));
-				}
+					cvShowImage("Blacked Pupil Iris", data.irisBlackedPupil);
+					cvShowImage("Polar to Cart", data.polar2cart);
+					cvWaitKey(0);	
+					}
 			}
 		});
 		panel.add(btnBoto);
@@ -163,6 +165,7 @@ public class UserInterface {
 		try {
 			if ((capturedFrame = grabber.grab()) != null) { // If its not null
 				capturedFrame = grabber.grab(); // Pass the frame
+				
 			}
 
 		} catch (Exception e) {
