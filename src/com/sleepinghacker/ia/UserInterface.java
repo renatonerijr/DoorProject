@@ -48,7 +48,7 @@ public class UserInterface {
 	public static ArrayList<int[]> eyeList = new ArrayList<>();
 	
 	public static int[] compare;
-	public static double hd = 0.23;
+	public static double hd = 0.25;
 
 	public static void main(String[] Args) {
 		UserInterface uinterface = new UserInterface();
@@ -120,16 +120,15 @@ public class UserInterface {
 		Thread tr2 = new Thread() {
 			public void run() {
 				while (true) {
-					
-						captureWebcam();
-						try {
-							grabber.flush(); // Avoid to crash webcam, dont remove it
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						compareEyes();
-					
+					try {
+						grabber.flush(); // Avoid to crash webcam, dont remove it
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					captureWebcam();
+
+					compareEyes();
 
 				}
 
@@ -154,10 +153,10 @@ public class UserInterface {
 				
 				for (int i = 0; i < eyeList.size(); i++) { // Go to all iris codes registred and get the hammingcode
 					
-					double n = data.hammingDistance(compare, eyeList.get(i), 10);
+					double n = data.hammingDistance(compare, eyeList.get(i),5);
 					System.out.println(n + "%");
 				
-					if (n < hd && n > 0) { // If its a safe hamming distance, you shall must pass!
+					if (n < hd && n > 0 ) { // If its a safe hamming distance, you shall must pass!
 						frame.setVisible(true); // Sets frame visible
 					}
 
