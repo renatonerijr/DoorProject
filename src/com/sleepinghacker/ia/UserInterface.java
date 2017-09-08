@@ -48,7 +48,7 @@ public class UserInterface {
 	public static ArrayList<int[]> eyeList = new ArrayList<>();
 	
 	public static int[] compare;
-	public static double hd = 0.19;
+	public static double hd = 0.23;
 
 	public static void main(String[] Args) {
 		UserInterface uinterface = new UserInterface();
@@ -120,9 +120,16 @@ public class UserInterface {
 		Thread tr2 = new Thread() {
 			public void run() {
 				while (true) {
-					cFrame.showImage(capturedFrame);
-					captureWebcam();
-					compareEyes();
+					
+						captureWebcam();
+						try {
+							grabber.flush(); // Avoid to crash webcam, dont remove it
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						compareEyes();
+					
 
 				}
 
@@ -133,19 +140,23 @@ public class UserInterface {
 		tr2.start();
 	}
 
-	public static void compareEyes() {
+	public static void compareEyes(){
+			
 		compare = data.newIrisArray(null, catchedEye); // Recives a int array w/ iriscode
+
 		if (compare != null) { // If finds a iris
+			
 			newEye = catchedEye;
+			
 			if (eyeList.size() != 0) { // If there is a iris in array list
-
+				
 				System.out.println(eyeList.size()); // Prints his size
-
+				
 				for (int i = 0; i < eyeList.size(); i++) { // Go to all iris codes registred and get the hammingcode
-
+					
 					double n = data.hammingDistance(compare, eyeList.get(i), 10);
 					System.out.println(n + "%");
-
+				
 					if (n < hd && n > 0) { // If its a safe hamming distance, you shall must pass!
 						frame.setVisible(true); // Sets frame visible
 					}
@@ -165,7 +176,7 @@ public class UserInterface {
 		try {
 			if ((capturedFrame = grabber.grab()) != null) { // If its not null
 				capturedFrame = grabber.grab(); // Pass the frame
-				
+				cFrame.showImage(capturedFrame);
 			}
 
 		} catch (Exception e) {
