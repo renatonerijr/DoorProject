@@ -12,6 +12,3 @@ OpenCv Libs are in:
 
 The code is on:
 /src/com/sleepinghacker/ia/
-
-Things to implement:
- - A Gabor Filter 
