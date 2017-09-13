@@ -2,7 +2,7 @@ package com.sleepinghacker.ia;
 
 import static org.bytedeco.javacpp.opencv_core.*;
 import static org.bytedeco.javacpp.opencv_imgproc.*;
-
+import static org.bytedeco.javacpp.opencv_highgui.*;
 import static org.bytedeco.javacpp.opencv_imgcodecs.*;
 
 public class Image {
@@ -46,12 +46,15 @@ public class Image {
 		if (img != null) { // If IplImage is different to null b/a IplImage
 			IplImage newRImage = IplImage.create(img.width(), img.height(), img.depth(), 1);
 			cvCvtColor(img, newRImage, COLOR_BGR2GRAY);
+			cvEqualizeHist(newRImage,newRImage);
 			return newRImage;
 
 		} else if (filepath != null) {// If IplImage is equals to null, creates a new IplImage w/ filepath and b/a
 			IplImage image = cvLoadImage(filepath);
 			IplImage newRImage = IplImage.create(image.width(), image.height(), image.depth(), image.nChannels());
 			cvCvtColor(img, newRImage, COLOR_BGR2GRAY);
+			cvEqualizeHist(newRImage,newRImage);
+			
 			return newRImage;
 		} else {
 			System.out.println("Error");
@@ -137,7 +140,7 @@ public class Image {
 
 	public static IplImage getPolar2CartImg(IplImage img) { // Transform image in Cartesian
 		if (img != null) {
-			IplImage resImg = cvCreateImage(cvSize(rad * 3, 360), 8, 3);// Creates a new image
+			IplImage resImg = cvCreateImage(cvSize(rad * 3, 360), 8, 1);// Creates a new image
 			cvLogPolar(img, resImg, cvPoint2D32f(img.width() / 2.0, img.height() / 2.0), 80.0,
 					CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS); // Transform in Cartesian plane
 			return resImg; // Return image w/ Cartesian Plane
@@ -145,7 +148,41 @@ public class Image {
 			return img;
 		}
 	}
+	
+	public IplImage gaborfilter(IplImage img) {
+		if (img != null) {
+			int width = 10;
+			int height = 10;
+			double sigma = 1.4;
+			double thetaDeg = 90;
+			double lambda = 4;
+			double gamma = 1.0;
+			double psiDeg = 0;
 
+			Size ksize = new Size(width,height);
+
+			// Reading an image
+			Mat image = new Mat(img);
+			double theta = thetaDeg * Math.PI / 180; // radian
+			double psi = psiDeg * Math.PI / 180; // radian
+
+			// Making the source black and white.
+			Mat mat1 = new Mat(image.rows(), image.cols(), CV_8UC1);
+			cvtColor(image, mat1, COLOR_BGR2GRAY);
+			
+
+			// Applying the Gabor filter.
+			Mat kernel = getGaborKernel(ksize, sigma, theta, lambda, gamma);
+			Mat dest = new Mat(mat1.rows(), mat1.cols(), image.type());
+			filter2D(mat1, dest, mat1.type(), kernel);
+
+			IplImage finalImg = new IplImage(dest);
+			return finalImg;
+		} else {
+			return img;
+		}
+	        
+	}
 	public IplImage blackPupil(IplImage img) { // Get the Iris content
 		if (img != null) {
 			// Creates a image resizes,b/a and smooth, after that calls getCircles

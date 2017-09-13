@@ -33,7 +33,7 @@ public class UserInterface {
 	*
 	***************************************************************************************/
 
-	public static OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0); // Captures webcam!" 
+	public static OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0); // Captures webcam!"
 	public static Frame capturedFrame = null;
 	public static DataProcess data = new DataProcess();
 
@@ -46,9 +46,9 @@ public class UserInterface {
 	public static IplImage newEye;
 
 	public static ArrayList<int[]> eyeList = new ArrayList<>();
-	
+
 	public static int[] compare;
-	public static double hd = 0.25;
+	public static double hd = 0.2;
 
 	public static void main(String[] Args) {
 		UserInterface uinterface = new UserInterface();
@@ -81,8 +81,8 @@ public class UserInterface {
 					eyeList.add(data.newIrisArray(null, newEye));
 					cvShowImage("Blacked Pupil Iris", data.irisBlackedPupil);
 					cvShowImage("Polar to Cart", data.polar2cart);
-					cvWaitKey(0);	
-					}
+					cvWaitKey(0);
+				}
 			}
 		});
 		panel.add(btnBoto);
@@ -139,24 +139,24 @@ public class UserInterface {
 		tr2.start();
 	}
 
-	public static void compareEyes(){
-			
+	public static void compareEyes() {
+
 		compare = data.newIrisArray(null, catchedEye); // Recives a int array w/ iriscode
 
 		if (compare != null) { // If finds a iris
-			
+
 			newEye = catchedEye;
-			
+
 			if (eyeList.size() != 0) { // If there is a iris in array list
-				
+
 				System.out.println(eyeList.size()); // Prints his size
-				
+
 				for (int i = 0; i < eyeList.size(); i++) { // Go to all iris codes registred and get the hammingcode
-					
-					double n = data.hammingDistance(compare, eyeList.get(i),5);
+
+					double n = data.hammingDistance(compare, eyeList.get(i), 1);
 					System.out.println(n + "%");
-				
-					if (n < hd && n > 0 ) { // If its a safe hamming distance, you shall must pass!
+
+					if (n < hd && n > 0) { // If its a safe hamming distance, you shall must pass!
 						frame.setVisible(true); // Sets frame visible
 					}
 

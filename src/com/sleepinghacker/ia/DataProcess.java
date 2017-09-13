@@ -1,6 +1,7 @@
 package com.sleepinghacker.ia;
 
 import static org.bytedeco.javacpp.opencv_core.*;
+import static org.bytedeco.javacpp.opencv_highgui.cvShowImage;
 import static org.bytedeco.javacpp.opencv_imgcodecs.*;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 
@@ -38,16 +39,17 @@ public class DataProcess {
 
 		// Get Iris and Transform in Cartesian Plane
 		iris = image.getIris(img); // Get a cropped image from eye
-		iris = image.blackPupil(iris); // Paint pupil with black
+		iris = image.blackPupil(iris);
+		iris = image.gaborfilter(iris);
 		irisBlackedPupil = iris; // Pass to a global variable
 
 		if (iris != null) {
 			irisCart = Image.getPolar2CartImg(iris);
 			if (irisCart != null) {
-				irisCart = image.blackImage(null, irisCart);
+				
 				irisCart = image.reduceSize(null, irisCart, 200, 200);
 				polar2cart = irisCart; // Pass to a global variable
-
+				
 				// Return transformed image
 				return convertIpltoArray(null, irisCart);
 			}
@@ -91,7 +93,7 @@ public class DataProcess {
 	}
 
 	public double hammingDistance(int[] irisCode, int[] irisToCompare, int taxRate) { // A Hybrid between Hamming
-																						// distance and my personal code
+		// distance and my personal code
 
 		double result = 0;
 		for (int i = 0; i < irisCode.length; i++) {
